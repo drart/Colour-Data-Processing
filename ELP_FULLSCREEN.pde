@@ -34,11 +34,11 @@ PImage imgdif; // image with pixel thresholding
 PImage videoimage;
 
 //SoftFullScreen fs; 
-FullScreen fs;
+SoftFullScreen fs;
 Capture video;
 
 void setup() {
-  size(1024, 768);
+  size(screen.width, screen.height);
 
   video = new Capture(this, 640, 480, 15);
 
@@ -53,7 +53,7 @@ void setup() {
   distances = new float[numberOfColors];
 
   //fs = new SoftFullScreen(this); 
-  fs = new FullScreen(this); 
+  fs = new SoftFullScreen(this); 
   //fs.enter(); 
   //  noCursor();
 
@@ -145,7 +145,7 @@ void draw() {
      else
      imgdif.pixels[i] = video.pixels[i]; 
      */
-    imgdif.pixels[i] = color ( 255 - distances[closest]  ) ;
+    imgdif.pixels[i] = color ( distances[closest]  ) ;
   }// iterate through pixels
 
   imgdif.updatePixels();
@@ -155,8 +155,8 @@ void draw() {
   //
   int total = sorted.width + imgdif.width;
 
-  image(sorted, 0,0, sorted.width, sorted.height);
-  image(imgdif, width/2,0, imgdif.width, imgdif.height);
+  image(sorted, 0,height/2 - (sorted.height/2), width/2, height/2);
+  image(imgdif, width/2, height/2 - (imgdif.height/2), width/2, height/2);
 }
 
 void mouseClicked() {
